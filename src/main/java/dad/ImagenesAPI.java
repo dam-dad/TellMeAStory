@@ -17,7 +17,7 @@ public class ImagenesAPI {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            String inputText = "{\"inputs\": \"Una pintura de un paisaje surrealista\"}";
+            String inputText = "{\"inputs\": \"El astronauta, llamado Max, medía casi dos metros de altura, lo que le había causado algunos problemas en su carrera espacial. Las naves no estaban diseñadas para alguien de su estatura, pero su determinación y su pasión por el espacio le habían permitido superar cualquier obstáculo. Ahora, estaba a punto de embarcarse en una misión crucial para establecer una base en Marte.\"}";
 
             try (OutputStream os = connection.getOutputStream()) {
                 byte[] input = inputText.getBytes("utf-8");

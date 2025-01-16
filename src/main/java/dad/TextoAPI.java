@@ -16,7 +16,7 @@ public class TextoAPI {
             JSONObject requestBody = new JSONObject();
             requestBody.put("model", "microsoft/WizardLM-2-8x22B");
             requestBody.put("messages", new JSONArray()
-                    .put(new JSONObject().put("role", "system").put("content", "Eres un asistente que puede completar historias y textos."))
+                    .put(new JSONObject().put("role", "system").put("content", "Eres un asistente que puede completar historias y generar opciones de continuación para que el usuario decida el rumbo de la historia."))
                     .put(new JSONObject().put("role", "user").put("content", userInput))
             );
             requestBody.put("temperature", 0.7);
