@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TextoAPI {
-    public static void main(String[] args) {
+    public void GenerarHistoria(String historia) {
         try {
             String apiUrl = "https://api.aimlapi.com/v1/chat/completions";
             String apiKey = "";

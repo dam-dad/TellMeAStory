@@ -35,7 +35,6 @@ public class IntroController implements Initializable {
 
     @FXML
     void onStartAction(ActionEvent event) {
-
         try {
             String texto = introText.getText().trim();
             if (texto.isEmpty()) {
@@ -53,7 +52,7 @@ public class IntroController implements Initializable {
                     choiceController.setRootController(rootController);
                     String textoCapturado = introText.getText().trim();
                     TextoAPI textoAPI = new TextoAPI();
-                    textoAPI.generarHistoriaConAPI(textoCapturado);
+                    textoAPI.GenerarHistoria(textoCapturado);
                 } else {
                     System.err.println("RootController no está configurado.");
                 }
