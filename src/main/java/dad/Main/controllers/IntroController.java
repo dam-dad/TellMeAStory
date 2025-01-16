@@ -1,13 +1,13 @@
 package dad.Main.controllers;
 
+import dad.*;
 import dad.Main.controllers.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -37,18 +37,26 @@ public class IntroController implements Initializable {
     void onStartAction(ActionEvent event) {
 
         try {
-            // Cargar el nuevo archivo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceview.fxml"));
-            ChoiceController choiceController = new ChoiceController();
-            loader.setController(choiceController);
-            Parent newView = loader.load();
-            // Pasar la nueva vista al RootController
-            if (rootController != null) {
-                rootController.setView(newView);
-                choiceController.setRootController(rootController);
-
-            } else {
-                System.err.println("RootController no está configurado.");
+            String texto = introText.getText().trim();
+            if (texto.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Introducción vacía");
+                alert.setContentText("Por favor introduzca la introducción");
+                alert.showAndWait();
+            }else {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceview.fxml"));
+                ChoiceController choiceController = new ChoiceController();
+                loader.setController(choiceController);
+                Parent newView = loader.load();
+                if (rootController != null) {
+                    rootController.setView(newView);
+                    choiceController.setRootController(rootController);
+                    String textoCapturado = introText.getText().trim();
+                    TextoAPI textoAPI = new TextoAPI();
+                    textoAPI.generarHistoriaConAPI(textoCapturado);
+                } else {
+                    System.err.println("RootController no está configurado.");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

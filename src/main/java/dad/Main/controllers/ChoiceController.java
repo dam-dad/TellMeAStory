@@ -48,14 +48,11 @@ public class ChoiceController implements Initializable {
 
     @FXML
     void onNewStoryAction(ActionEvent event) {
-
         try {
             // Obtener la ventana actual
             javafx.stage.Stage currentStage = (javafx.stage.Stage) rootController.getRoot().getScene().getWindow();
-
             // Cerrar la ventana actual
             currentStage.close();
-
             // Reiniciar la aplicación ejecutando el método `start` de la clase principal
             TellMeAStoryApp app = new TellMeAStoryApp();
             javafx.application.Platform.runLater(() -> {
@@ -80,6 +77,7 @@ public class ChoiceController implements Initializable {
     void onOptionTwoAction(ActionEvent event) {
 
     }
+
 
     public Button getEndButton() {
         return endButton;
