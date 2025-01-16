@@ -12,7 +12,6 @@ public class ImagenesAPI {
         try {
             URL url = new URL(API_URL);
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Authorization", "Bearer " + API_TOKEN);
             connection.setRequestProperty("Content-Type", "application/json");

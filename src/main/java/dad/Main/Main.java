@@ -1,6 +1,6 @@
 package dad.Main;
 
-import dad.TellMeAStoryApp;
+import dad.Main.TellMeAStoryApp;
 import javafx.application.Application;
 
 public class Main {

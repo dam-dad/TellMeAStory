@@ -1,6 +1,6 @@
 package dad.Main;
 
-import dad.controllers.RootController;
+import dad.Main.controllers.RootController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

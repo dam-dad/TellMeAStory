@@ -1,5 +1,6 @@
-package dad.controllers;
+package dad.Main.controllers;
 
+import dad.Main.controllers.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,12 +25,7 @@ public class IntroController implements Initializable {
     @FXML
     private TextArea introText;
 
-    private RootController rootController;
-
-    public void setRootController(RootController rootController) {
-        this.rootController = rootController;
-    }
-
+    private dad.Main.controllers.RootController rootController;
 
 
     @Override
@@ -46,11 +42,11 @@ public class IntroController implements Initializable {
             ChoiceController choiceController = new ChoiceController();
             loader.setController(choiceController);
             Parent newView = loader.load();
-
             // Pasar la nueva vista al RootController
             if (rootController != null) {
                 rootController.setView(newView);
                 choiceController.setRootController(rootController);
+
             } else {
                 System.err.println("RootController no está configurado.");
             }
@@ -82,5 +78,13 @@ public class IntroController implements Initializable {
 
     public void setIntroText(TextArea introText) {
         this.introText = introText;
+    }
+
+    public RootController getRootController() {
+        return rootController;
+    }
+
+    public void setRootController(RootController rootController) {
+        this.rootController = rootController;
     }
 }

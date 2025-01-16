@@ -1,6 +1,6 @@
-package dad.controllers;
+package dad.Main.controllers;
 
-import dad.TellMeAStoryApp;
+import dad.Main.TellMeAStoryApp;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +34,7 @@ public class ChoiceController implements Initializable {
     @FXML
     private Button option2Button;
 
-    private RootController rootController;
+    private dad.Main.controllers.RootController rootController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

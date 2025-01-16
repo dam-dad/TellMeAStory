@@ -1,4 +1,4 @@
-package dad.controllers;
+package dad.Main.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
