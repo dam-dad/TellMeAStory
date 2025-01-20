@@ -103,9 +103,4 @@ public class TextoAPI {
             return text;
         }
     }
-<<<<<<< Updated upstream
 }
-=======
-}
-
->>>>>>> Stashed changes
