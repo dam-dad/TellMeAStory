@@ -16,7 +16,7 @@ public class TextoAPI {
             JSONObject requestBody = new JSONObject();
             requestBody.put("model", "microsoft/WizardLM-2-8x22B");
             requestBody.put("messages", new JSONArray()
-                    .put(new JSONObject().put("role", "system").put("content", "Eres un asistente que puede completar historias y generar opciones de continuación para que el usuario decida el rumbo de la historia."))
+                    .put(new JSONObject().put("role", "system").put("content", "Eres un asistente que puede completar historias y generar dos opciones de continuación para que el usuario decida el rumbo de la historia, con un maximo de 256 caracteres. El contenido lo daras en formato JSON, sin saltos de linea"))
                     .put(new JSONObject().put("role", "user").put("content", userInput))
             );
             requestBody.put("temperature", 0.7);
@@ -50,26 +50,8 @@ public class TextoAPI {
                 System.out.println(response.toString());
 
                 JSONObject jsonResponse = new JSONObject(response.toString());
+                //processApiResponse(jsonResponse);
 
-                if (jsonResponse.has("choices")) {
-                    JSONArray choices = jsonResponse.getJSONArray("choices");
-
-                    if (choices.length() >= 2) {
-                        String option1 = choices.getJSONObject(0).getJSONObject("message").getString("content");
-                        String option2 = choices.getJSONObject(1).getJSONObject("message").getString("content");
-
-                        String truncatedOption1 = limitTo256Words(option1);
-                        String truncatedOption2 = limitTo256Words(option2);
-
-                        System.out.println("Opción 1 (256 palabras): " + truncatedOption1);
-                        System.out.println("Opción 2 (256 palabras): " + truncatedOption2);
-                    } else {
-                        System.out.println("No se generaron suficientes opciones.");
-                    }
-                } else {
-                    System.out.println("La respuesta no contiene el campo 'choices' esperado.");
-                    System.out.println("Respuesta completa: " + jsonResponse.toString());
-                }
             } else {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 String inputLine;
@@ -87,6 +69,28 @@ public class TextoAPI {
         }
     }
 
+    private static void processApiResponse(JSONObject jsonResponse) {
+        if (jsonResponse.has("choices")) {
+            JSONArray choices = jsonResponse.getJSONArray("choices");
+
+            for (int i = 0; i < choices.length(); i++) {
+                JSONObject choice = choices.getJSONObject(i);
+                String content = new JSONObject(choice.getJSONObject("message").getString("content"))
+                        .getString("historia");
+
+                String truncatedContent = limitTo256Words(content);
+
+                System.out.println();
+                System.out.println("Opción " + (i + 1) + ":");
+                System.out.println(truncatedContent);
+                System.out.println("--------------------------------------------------");
+            }
+        } else {
+            System.out.println("La respuesta no contiene el campo 'choices' esperado.");
+            System.out.println("Respuesta completa: " + jsonResponse.toString());
+        }
+    }
+
     private static String limitTo256Words(String text) {
         String[] words = text.split("\\s+");
         if (words.length > 256) {
@@ -99,4 +103,9 @@ public class TextoAPI {
             return text;
         }
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+>>>>>>> Stashed changes
