@@ -25,7 +25,7 @@ public class IntroController implements Initializable {
     @FXML
     private TextArea introText;
 
-    private dad.Main.controllers.RootController rootController;
+    private RootController rootController;
 
 
     @Override
@@ -51,8 +51,10 @@ public class IntroController implements Initializable {
                     rootController.setView(newView);
                     choiceController.setRootController(rootController);
                     String textoCapturado = introText.getText().trim();
-                    TextoAPI textoAPI = new TextoAPI();
-                    textoAPI.GenerarHistoria(textoCapturado);
+                    TextoApi textoApi = new TextoApi();
+                    TextoAPIResponse textoAPIResponse = new TextoAPIResponse(textoApi);
+                    textoAPIResponse.generarHistoria(textoCapturado);
+
                 } else {
                     System.err.println("RootController no está configurado.");
                 }
