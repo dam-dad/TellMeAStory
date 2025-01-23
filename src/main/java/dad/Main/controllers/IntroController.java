@@ -52,7 +52,8 @@ public class IntroController implements Initializable {
                     choiceController.setRootController(rootController);
                     String textoCapturado = introText.getText().trim();
                     TextoAPI textoAPI = new TextoAPI();
-                    textoAPI.GenerarHistoria(textoCapturado);
+                    textoAPI.generarIntroduccion(textoCapturado);
+                    System.out.println(textoCapturado);
                 } else {
                     System.err.println("RootController no está configurado.");
                 }
@@ -60,7 +61,6 @@ public class IntroController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public Button getIntroButton() {

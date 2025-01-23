@@ -79,6 +79,11 @@ public class ChoiceController implements Initializable {
     }
 
 
+    public void mostrarHistoria(){
+
+    }
+
+
     public Button getEndButton() {
         return endButton;
     }

@@ -7,11 +7,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class TextoAPI {
-    public void GenerarHistoria(String historia) {
+
+    public void generarIntroduccion(String historia) {
         try {
             String apiUrl = "https://api.aimlapi.com/v1/chat/completions";
-            String apiKey = "";
-            String userInput = "Había una vez un astronauta que era muy alto";
+            String apiKey = "11029d6a709d49618e431a3211c0a927";
+            String userInput = historia;
 
             JSONObject requestBody = new JSONObject();
             requestBody.put("model", "microsoft/WizardLM-2-8x22B");
@@ -36,7 +37,6 @@ public class TextoAPI {
             }
 
             int responseCode = connection.getResponseCode();
-
             if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 String inputLine;
@@ -47,29 +47,14 @@ public class TextoAPI {
                 in.close();
 
                 System.out.println("Respuesta completa de la API: ");
-                System.out.println(response.toString());
+                String responseString = response.toString();
+                System.out.println(responseString);
 
-                JSONObject jsonResponse = new JSONObject(response.toString());
+                // Limpiar los números del texto
+                String cleanedResponse = limpiarTexto(responseString);
+                System.out.println("Texto sin números: ");
+                System.out.println(cleanedResponse);
 
-                if (jsonResponse.has("choices")) {
-                    JSONArray choices = jsonResponse.getJSONArray("choices");
-
-                    if (choices.length() >= 2) {
-                        String option1 = choices.getJSONObject(0).getJSONObject("message").getString("content");
-                        String option2 = choices.getJSONObject(1).getJSONObject("message").getString("content");
-
-                        String truncatedOption1 = limitTo256Words(option1);
-                        String truncatedOption2 = limitTo256Words(option2);
-
-                        System.out.println("Opción 1 (256 palabras): " + truncatedOption1);
-                        System.out.println("Opción 2 (256 palabras): " + truncatedOption2);
-                    } else {
-                        System.out.println("No se generaron suficientes opciones.");
-                    }
-                } else {
-                    System.out.println("La respuesta no contiene el campo 'choices' esperado.");
-                    System.out.println("Respuesta completa: " + jsonResponse.toString());
-                }
             } else {
                 BufferedReader in = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
                 String inputLine;
@@ -81,10 +66,13 @@ public class TextoAPI {
                 System.out.println("Error en la solicitud: " + responseCode);
                 System.out.println("Detalles del error: " + errorResponse.toString());
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static String limpiarTexto(String text) {
+        return text.replaceAll("(?m)^\\d+\\.\\s*", "").trim();
     }
 
     private static String limitTo256Words(String text) {
