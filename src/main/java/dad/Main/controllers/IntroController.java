@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-
+import dad.Main.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,16 +51,10 @@ public class IntroController implements Initializable {
                     rootController.setView(newView);
                     choiceController.setRootController(rootController);
                     String textoCapturado = introText.getText().trim();
-<<<<<<< HEAD
-                    TextoAPI textoAPI = new TextoAPI();
-                    textoAPI.generarIntroduccion(textoCapturado);
                     System.out.println(textoCapturado);
-=======
                     TextoApi textoApi = new TextoApi();
                     TextoAPIResponse textoAPIResponse = new TextoAPIResponse(textoApi);
                     textoAPIResponse.generarHistoria(textoCapturado);
-
->>>>>>> 6f85327202483bd52960bc56abefc717bddbb45b
                 } else {
                     System.err.println("RootController no está configurado.");
                 }
