@@ -79,12 +79,15 @@ public class ChoiceController implements Initializable {
     void onOptionOneAction(ActionEvent event) throws Exception {
 
         String option = "Opcion 1";
-        textoApi.choices(option);
+        rootController.getTextoApi().choices(option);
 
     }
 
     @FXML
-    void onOptionTwoAction(ActionEvent event) {
+    void onOptionTwoAction(ActionEvent event) throws Exception {
+
+        String option = "Opcion 2";
+        rootController.getTextoApi().choices(option);
 
     }
 

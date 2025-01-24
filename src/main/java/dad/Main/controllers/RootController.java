@@ -1,5 +1,7 @@
 package dad.Main.controllers;
 
+import dad.Main.apis.TextoApi;
+import io.github.fvarrui.jeppetto.Chat;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +26,7 @@ public class RootController implements Initializable {
     private SplitPane root;
 
     private IntroController introController;
+    private TextoApi textoApi;
 
     public RootController() {
         try {
@@ -37,6 +40,10 @@ public class RootController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+
+            textoApi = new TextoApi();
+
+
             // Cargar el archivo FXML y su controlador
             FXMLLoader introLoader = new FXMLLoader(getClass().getResource("/fxml/introroot.fxml"));
             introController = new IntroController();
@@ -90,5 +97,13 @@ public class RootController implements Initializable {
 
     public void setRoot(SplitPane root) {
         this.root = root;
+    }
+
+    public TextoApi getTextoApi() {
+        return textoApi;
+    }
+
+    public void setTextoApi(TextoApi textoApi) {
+        this.textoApi = textoApi;
     }
 }

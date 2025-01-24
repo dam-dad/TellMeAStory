@@ -137,7 +137,7 @@
       <artifactId>javafx-fxml</artifactId>
       <version>22.0.1</version>
     </dependency>
-
+    <!-- Dependencias para el uso de la api de openai -->
     <dependency>
       <groupId>io.github.fvarrui</groupId>
       <artifactId>jeppetto</artifactId>
