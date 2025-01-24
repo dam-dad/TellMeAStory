@@ -1,7 +1,10 @@
 package dad.Main.controllers;
 
-import dad.*;
-import dad.Main.controllers.*;
+import dad.Main.apis.TextoApi;
+import io.github.fvarrui.jeppetto.Chat;
+import io.github.fvarrui.jeppetto.Jeppetto;
+import io.github.fvarrui.jeppetto.api.chat.completions.RequestCompletion;
+import io.github.fvarrui.jeppetto.api.models.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-
+import dad.Main.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +29,12 @@ public class IntroController implements Initializable {
     private TextArea introText;
 
     private RootController rootController;
+
+    private Jeppetto jeppetto;
+
+    private static final String API_KEY = ResourceBundle.getBundle("config").getString("openai.api.key");
+
+    private final TextoApi textoApi = new TextoApi();
 
 
     @Override
@@ -51,9 +60,9 @@ public class IntroController implements Initializable {
                     rootController.setView(newView);
                     choiceController.setRootController(rootController);
                     String textoCapturado = introText.getText().trim();
-                    TextoApi textoApi = new TextoApi();
-                    TextoAPIResponse textoAPIResponse = new TextoAPIResponse(textoApi);
-                    textoAPIResponse.generarHistoria(textoCapturado);
+                    System.out.println(textoCapturado);
+                    textoApi.textoApi(textoCapturado);
+
 
                 } else {
                     System.err.println("RootController no está configurado.");
@@ -61,8 +70,9 @@ public class IntroController implements Initializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
     }
 
     public Button getIntroButton() {

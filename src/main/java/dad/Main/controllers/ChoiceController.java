@@ -1,6 +1,9 @@
 package dad.Main.controllers;
 
 import dad.Main.TellMeAStoryApp;
+import dad.Main.apis.TextoApi;
+import io.github.fvarrui.jeppetto.Chat;
+import io.github.fvarrui.jeppetto.Jeppetto;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +39,10 @@ public class ChoiceController implements Initializable {
 
     private dad.Main.controllers.RootController rootController;
 
+    private Jeppetto jeppetto;
+
+    private TextoApi textoApi;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -69,12 +76,20 @@ public class ChoiceController implements Initializable {
     }
 
     @FXML
-    void onOptionOneAction(ActionEvent event) {
+    void onOptionOneAction(ActionEvent event) throws Exception {
+
+        String option = "Opcion 1";
+        textoApi.choices(option);
 
     }
 
     @FXML
     void onOptionTwoAction(ActionEvent event) {
+
+    }
+
+
+    public void mostrarHistoria(){
 
     }
 

@@ -9,7 +9,7 @@
 <VBox fx:id="introRoot" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label maxWidth="1.7976931348623157E308" text="Introducción" />
-      <TextArea fx:id="introText" />
+      <TextArea fx:id="introText" promptText="Escribe la introducción haciendo referencia al genero que deseas" />
       <Button fx:id="introButton" mnemonicParsing="false" onAction="#onStartAction" text="Comenzar historia" />
    </children>
    <padding>
