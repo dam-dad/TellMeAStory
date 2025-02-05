@@ -1,15 +1,16 @@
 package dad.Main.apis;
 
+import dad.Main.controllers.ChoiceController;
 import dad.Main.controllers.RootController;
 import io.github.fvarrui.jeppetto.Chat;
-import io.github.fvarrui.jeppetto.Jeppetto;
+import org.json.JSONObject;
 
 import java.util.ResourceBundle;
 
 public class TextoApi {
 
-    private RootController rootController;
-    private Jeppetto jeppetto;
+    private final RootController rootController;
+    private ChoiceController choiceController;
 
     private static final String API_KEY = ResourceBundle.getBundle("config").getString("openai.api.key");
 
@@ -22,17 +23,26 @@ public class TextoApi {
         """;
         Chat chat = new Chat(API_KEY, model, developerMessage);
 
-    public void textoApi(String introduccion) throws Exception {
-
-        rootController.getIATextArea().textProperty().set(chat.send(introduccion).getContent());
-
-        //System.out.println(chat.send(introduccion).getContent());
-
+    public TextoApi(RootController rootController) {
+        this.rootController = rootController;
     }
 
-    public void choices(String option) throws Exception {
 
-        System.out.println(chat.send(option).getContent());
+    public void textoApi(String introduccion) throws Exception {
+
+        JSONObject jsonObject = new JSONObject(chat.send(introduccion).getContent());
+
+        String story = jsonObject.getString("story");
+        String completeStory = "";
+        completeStory = completeStory + story;
+
+        rootController.textoIAProperty().set(completeStory);
+
+        String option1 = jsonObject.getString("option1");
+        String option2 = jsonObject.getString("option2");
+        String option = option1 + option2;
+
+        choiceController.optionIAProperty().set(option);
 
     }
 

@@ -2,6 +2,8 @@ package dad.Main.controllers;
 
 import dad.Main.apis.TextoApi;
 import io.github.fvarrui.jeppetto.Chat;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
 
+    private final StringProperty textoIA = new SimpleStringProperty("");
+
     @FXML
     private TextArea IATextArea;
 
@@ -25,7 +29,6 @@ public class RootController implements Initializable {
     @FXML
     private SplitPane root;
 
-    private IntroController introController;
     private TextoApi textoApi;
 
     public RootController() {
@@ -41,12 +44,14 @@ public class RootController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
 
-            textoApi = new TextoApi();
+            textoApi = new TextoApi(this);
 
+            IATextArea.textProperty().bind(textoIA);
+            IATextArea.setWrapText(true); // Habilitar ajuste de línea automático
 
             // Cargar el archivo FXML y su controlador
             FXMLLoader introLoader = new FXMLLoader(getClass().getResource("/fxml/introroot.fxml"));
-            introController = new IntroController();
+            IntroController introController = new IntroController();
             introLoader.setController(introController);
             Parent introContent = introLoader.load();
             introController.setRootController(this);
@@ -62,6 +67,10 @@ public class RootController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public StringProperty textoIAProperty() {
+        return textoIA;
     }
 
     public void setView(Parent view) {

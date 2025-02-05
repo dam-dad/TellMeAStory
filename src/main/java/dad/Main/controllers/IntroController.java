@@ -1,6 +1,5 @@
 package dad.Main.controllers;
 
-import dad.Main.apis.TextoApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,9 +24,6 @@ public class IntroController implements Initializable {
 
     private RootController rootController;
 
-    private TextoApi textoApi;
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -47,15 +43,12 @@ public class IntroController implements Initializable {
                 ChoiceController choiceController = new ChoiceController();
                 loader.setController(choiceController);
                 Parent newView = loader.load();
+
                 if (rootController != null) {
                     rootController.setView(newView);
                     choiceController.setRootController(rootController);
                     String textoCapturado = introText.getText().trim();
-                    System.out.println(textoCapturado);
                     rootController.getTextoApi().textoApi(textoCapturado);
-                    //textoApi.textoApi(textoCapturado);
-
-
                 } else {
                     System.err.println("RootController no está configurado.");
                 }

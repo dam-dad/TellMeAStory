@@ -4,6 +4,8 @@ import dad.Main.TellMeAStoryApp;
 import dad.Main.apis.TextoApi;
 import io.github.fvarrui.jeppetto.Chat;
 import io.github.fvarrui.jeppetto.Jeppetto;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ChoiceController implements Initializable {
+
+    private final StringProperty opcionesIA = new SimpleStringProperty("");
 
     @FXML
     private TextArea IAOptionText;
@@ -39,13 +43,26 @@ public class ChoiceController implements Initializable {
 
     private dad.Main.controllers.RootController rootController;
 
-    private Jeppetto jeppetto;
-
-    private TextoApi textoApi;
+    public ChoiceController() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/choiceview.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        IAOptionText.textProperty().bind(opcionesIA);
+        IAOptionText.setWrapText(true);
+
+    }
+
+    public StringProperty optionIAProperty() {
+        return opcionesIA;
     }
 
     @FXML
@@ -79,7 +96,7 @@ public class ChoiceController implements Initializable {
     void onOptionOneAction(ActionEvent event) throws Exception {
 
         String option = "Opcion 1";
-        rootController.getTextoApi().choices(option);
+        rootController.getTextoApi().textoApi(option);
 
     }
 
@@ -87,7 +104,7 @@ public class ChoiceController implements Initializable {
     void onOptionTwoAction(ActionEvent event) throws Exception {
 
         String option = "Opcion 2";
-        rootController.getTextoApi().choices(option);
+        rootController.getTextoApi().textoApi(option);
 
     }
 
