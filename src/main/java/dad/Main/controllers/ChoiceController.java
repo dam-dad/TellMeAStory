@@ -43,16 +43,6 @@ public class ChoiceController implements Initializable {
 
     private dad.Main.controllers.RootController rootController;
 
-    public ChoiceController() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/choiceview.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -66,8 +56,10 @@ public class ChoiceController implements Initializable {
     }
 
     @FXML
-    void onEndAction(ActionEvent event) {
+    void onEndAction(ActionEvent event) throws Exception {
 
+        String end = "Concluye la historia";
+        rootController.getTextoApi().textoApi(end);
     }
 
     @FXML

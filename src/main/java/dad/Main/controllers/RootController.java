@@ -30,6 +30,7 @@ public class RootController implements Initializable {
     private SplitPane root;
 
     private TextoApi textoApi;
+    private ChoiceController choiceController;
 
     public RootController() {
         try {
@@ -44,7 +45,7 @@ public class RootController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
 
-            textoApi = new TextoApi(this);
+            textoApi = new TextoApi(this, choiceController);
 
             IATextArea.textProperty().bind(textoIA);
             IATextArea.setWrapText(true); // Habilitar ajuste de línea automático

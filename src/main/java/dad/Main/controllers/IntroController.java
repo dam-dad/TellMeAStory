@@ -1,5 +1,6 @@
 package dad.Main.controllers;
 
+import dad.Main.apis.TextoApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class IntroController implements Initializable {
+
+    private ChoiceController choiceController;
+    private TextoApi textoApi;
 
     @FXML
     private Button introButton;
@@ -38,20 +42,32 @@ public class IntroController implements Initializable {
                 alert.setTitle("Introducción vacía");
                 alert.setContentText("Por favor introduzca la introducción");
                 alert.showAndWait();
-            }else {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceview.fxml"));
-                ChoiceController choiceController = new ChoiceController();
-                loader.setController(choiceController);
-                Parent newView = loader.load();
+                return;
+            }
 
-                if (rootController != null) {
-                    rootController.setView(newView);
-                    choiceController.setRootController(rootController);
-                    String textoCapturado = introText.getText().trim();
-                    rootController.getTextoApi().textoApi(textoCapturado);
-                } else {
-                    System.err.println("RootController no está configurado.");
-                }
+            // Cargar choiceview.fxml correctamente
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/choiceview.fxml"));
+            Parent newView = loader.load();
+            ChoiceController choiceController = loader.getController(); // Obtener el controlador del FXML
+
+            if (choiceController == null) {
+                System.err.println("Error: choiceController es NULL después de cargar FXML.");
+                return;
+            }
+
+            // Configurar la vista en RootController
+            if (rootController != null) {
+                rootController.setView(newView);
+                choiceController.setRootController(rootController); // Pasar el RootController a ChoiceController
+
+                // Crear TextoApi con ambos controladores y asignarlo al RootController
+                TextoApi textoApi = new TextoApi(rootController, choiceController);
+                rootController.setTextoApi(textoApi);
+
+                // Llamar a textoApi con el texto ingresado
+                textoApi.textoApi(texto);
+            } else {
+                System.err.println("Error: RootController es NULL.");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,6 +75,7 @@ public class IntroController implements Initializable {
             throw new RuntimeException(e);
         }
     }
+
 
     public Button getIntroButton() {
         return introButton;
