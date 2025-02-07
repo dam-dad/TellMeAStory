@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="Vroot" fx:controller="dad.Main.controllers.ChoiceController" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="Vroot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dad.Main.controllers.ChoiceController">
    <children>
       <Label text="Continuación de la historia">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextArea fx:id="IAOptionText" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="SOMETIMES" />
+      <TextArea fx:id="IAOptionText" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="SOMETIMES" />
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" spacing="15.0" VBox.vgrow="SOMETIMES">
          <children>
             <Button fx:id="option1Button" mnemonicParsing="false" onAction="#onOptionOneAction" text="Opción 1" />

@@ -14,12 +14,14 @@ public class TextoApi {
 
     private static final String API_KEY = ResourceBundle.getBundle("config").getString("openai.api.key");
 
+    int interaciones = 4;
+    String completeStory = "";
+
     String model = "gpt-4o-mini";
     String developerMessage = """
         Eres un asistente que crea historias
         y genera dos opciones de continuación en formato JSON.
         La historia se etiqueta como story y las opciones como option1 y option2.
-        Cada opcion comenzara de esta forma: Opciones:.
         Con la siguente introduccion:
         """;
         Chat chat = new Chat(API_KEY, model, developerMessage);
@@ -35,25 +37,51 @@ public class TextoApi {
         JSONObject jsonObject = new JSONObject(chat.send(introduccion).getContent());
 
         String story = jsonObject.getString("story");
-        String completeStory = "";
-        completeStory = completeStory + story;
 
         String option1 = jsonObject.getString("option1");
         String option2 = jsonObject.getString("option2");
         String option = option1 + System.lineSeparator() + System.lineSeparator() + option2;
 
-        if (rootController != null) {
+        if (interaciones >= 1) {
+
+            completeStory = completeStory + System.lineSeparator() + story;
+
+            --interaciones;
+
             rootController.textoIAProperty().set(completeStory);
-        } else {
-            System.out.println("Error: RootController es NULL en TextoApi.");
-        }
-
-        if (choiceController != null) {
             choiceController.optionIAProperty().set(option);
+
         } else {
-            System.out.println("Error: ChoiceController es NULL en TextoApi.");
+
+            JSONObject jsonFin = new JSONObject(chat.send(introduccion + " y dale un final a la historia").getContent());
+
+            String endStory = jsonFin.getString("story");
+            completeStory = completeStory + System.lineSeparator() + endStory;
+
+            rootController.textoIAProperty().set(completeStory);
+            choiceController.optionIAProperty().set("La Historia a terminado.");
+
+            choiceController.getOption1Button().setDisable(true);
+            choiceController.getOption2Button().setDisable(true);
+            choiceController.getEndButton().setDisable(true);
+
         }
 
+    }
+
+    public void endStory(String end) throws Exception {
+        JSONObject jsonObject = new JSONObject(chat.send(end).getContent());
+
+        String story = jsonObject.getString("story");
+
+        completeStory = completeStory + System.lineSeparator() + story;
+
+        rootController.textoIAProperty().set(completeStory);
+        choiceController.optionIAProperty().set("La Historia a terminado.");
+
+        choiceController.getOption1Button().setDisable(true);
+        choiceController.getOption2Button().setDisable(true);
+        choiceController.getEndButton().setDisable(true);
     }
 
 }

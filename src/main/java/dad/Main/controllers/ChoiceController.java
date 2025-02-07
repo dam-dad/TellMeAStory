@@ -59,7 +59,7 @@ public class ChoiceController implements Initializable {
     void onEndAction(ActionEvent event) throws Exception {
 
         String end = "Concluye la historia";
-        rootController.getTextoApi().textoApi(end);
+        rootController.getTextoApi().endStory(end);
     }
 
     @FXML
