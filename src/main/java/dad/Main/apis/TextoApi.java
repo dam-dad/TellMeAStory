@@ -66,8 +66,6 @@ public class TextoApi {
             rootController.textoIAProperty().set(completeStory);
             choiceController.optionIAProperty().set(option);
 
-            System.out.println(genero);
-
             --interaciones;
 
         } else {
