@@ -5,6 +5,7 @@ import dad.Main.controllers.RootController;
 import io.github.fvarrui.jeppetto.Chat;
 import org.json.JSONObject;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class TextoApi {
@@ -21,7 +22,9 @@ public class TextoApi {
     String developerMessage = """
         Eres un asistente que crea historias
         y genera dos opciones de continuación en formato JSON.
-        La historia se etiqueta como story y las opciones como option1 y option2.
+        En base a la introduccion determinaras el genero de entre estas opciones: fantasia, ciencia ficcion, terror o normal.
+        El genero normal lo elegiras cuando la introduccion no se tan especifica como para elegir los otros generos.
+        La historia se etiqueta como story, las opciones como option1 y option2 y el genero como genero.
         Con la siguente introduccion:
         """;
         Chat chat = new Chat(API_KEY, model, developerMessage);
@@ -42,14 +45,30 @@ public class TextoApi {
         String option2 = jsonObject.getString("option2");
         String option = option1 + System.lineSeparator() + System.lineSeparator() + option2;
 
+        String genero = jsonObject.getString("genero");
+
         if (interaciones >= 1) {
+            rootController.getRoot().getStylesheets().clear();
+            switch (genero.toLowerCase()){
+                case "fantasia":
+                    rootController.getRoot().getStylesheets().add("css/fantacia.css");
+                    break;
+                case "ciencia ficcion":
+                    rootController.getRoot().getStylesheets().add("css/ciencia-ficcion.css");
+                    break;
+                case "terror":
+                    rootController.getRoot().getStylesheets().add("css/terror.css");
+                    break;
+            }
 
             completeStory = completeStory + System.lineSeparator() + story;
 
-            --interaciones;
-
             rootController.textoIAProperty().set(completeStory);
             choiceController.optionIAProperty().set(option);
+
+            System.out.println(genero);
+
+            --interaciones;
 
         } else {
 

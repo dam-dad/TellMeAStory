@@ -1,0 +1,12 @@
+.root {
+    -fx-background-color: #4B0082; /* Índigo mágico */
+    -fx-text-fill: #FFD700; /* Dorado */
+    -fx-font-family: "Georgia", serif;
+}
+
+.text-area {
+    -fx-background-color: #6528A8;
+    -fx-text-fill: #FFD700;
+    -fx-font-size: 14px;
+    -fx-border-color: #FFD700;
+}

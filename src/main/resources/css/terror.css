@@ -1,0 +1,12 @@
+.root {
+    -fx-background-color: #000000; /* Negro total */
+    -fx-text-fill: #FF0000; /* Rojo sangre */
+    -fx-font-family: "Courier New", monospace;
+}
+
+.text-area {
+    -fx-background-color: #250000;
+    -fx-text-fill: #FF0000;
+    -fx-font-size: 14px;
+    -fx-border-color: #FF0000;
+}

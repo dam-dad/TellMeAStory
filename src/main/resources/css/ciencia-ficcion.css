@@ -1,0 +1,12 @@
+.root {
+    -fx-background-color: #0D1B2A; /* Azul oscuro futurista */
+    -fx-text-fill: #00E5FF; /* Azul neón */
+    -fx-font-family: "Arial", sans-serif;
+}
+
+.text-area {
+    -fx-background-color: #112A46;
+    -fx-text-fill: #00E5FF;
+    -fx-font-size: 14px;
+    -fx-border-color: #00E5FF;
+}
